@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# Campaign Flow Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Визуальный конструктор цепочек маркетинговых кампаний на **React + TypeScript** с канвой **React Flow**. Позволяет собирать граф из готовых узлов, настраивать их свойства, соединять, валидировать и сохранять/экспортировать результат.
 
-Currently, two official plugins are available:
+## Быстрый старт
+- Установка зависимостей: `npm install`
+- Дев‑сервер: `npm run dev`
+- Сборка (проверяет типы): `npm run build`
+- Линт: `npm run lint`
+- Просмотр собранной версии: `npm run preview`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Что внутри
+- Палитра блоков (левый Sidebar) для добавления узлов: start/meta/type, аудитория и фильтры, разветвления, A/B‑тест, action, LLM‑текст.
+- Канва **React Flow** (`FlowCanvas`) с кастомными карточками (`NodeRenderer`) и поддержкой соединений/перетаскивания.
+- Панель свойств справа (`NodePropertiesPanel`) с формами, зависящими от типа узла, и быстрыми редакторами условий/веток/переменных.
+- Toolbar: создание нового flow, сохранение/загрузка из `localStorage`, экспорт в JSON, запуск валидации с отображением ошибок.
+- Хранилище и типы данных описаны в `src/utils/storage.ts` и `src/types/*`.
 
-## Expanding the ESLint configuration
+## Формат данных
+Каждая схема — это `CampaignFlow` с полями `id`, `name`, `nodes`, `edges`, где `nodes` содержат `type`, `position` и `data` (структура зависит от типа узла, см. `src/types/nodes.ts`). Сохранение идет в `localStorage` под ключом `campaigns`, экспорт — в JSON‑файл.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Правила валидации (коротко)
+- Должен быть ровно один узел `campaignStart`.
+- Узлы `campaignMeta`, `campaignType`, `filter`, `funnelSplit`, `abTest`, `action` требуют входящего ребра.
+- `action` не может иметь исходящих ребер.
+- `abTest` — строго два исходящих ребра.
+- `funnelSplit` — минимум две ветки и исходящие ребра под каждую.
+- Самопетли запрещены.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Сборка и деплой
+- Результат сборки: `dist/` (`npm run build`).
+- В репозитории есть `vercel.json` для деплоя Vite‑билда на Vercel.

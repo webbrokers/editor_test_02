@@ -1,0 +1,164 @@
+.properties__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.properties__type {
+  color: #0f172a;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.properties__id {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.properties__hint {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #bae6fd;
+  font-size: 0.9rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stack--border {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.stack__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.field-row .input {
+  width: 100%;
+}
+
+.field-row--placement {
+  grid-template-columns: 1fr 1fr auto;
+}
+
+.field-row--compact {
+  grid-template-columns: 1fr auto;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  outline: 2px solid #a5b4fc;
+  border-color: #818cf8;
+}
+
+.input--textarea {
+  resize: vertical;
+}
+
+.input--range {
+  padding: 0;
+}
+
+.icon-button {
+  border: none;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: #e2e8f0;
+}
+
+.ghost-button {
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 0.65rem;
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ghost-button:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.ghost-button--danger {
+  border-color: #fecdd3;
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.slider-row__values {
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+  font-weight: 600;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.checkbox input {
+  width: auto;
+}

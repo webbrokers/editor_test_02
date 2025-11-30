@@ -29,6 +29,26 @@
   font-size: 1rem;
 }
 
+.toolbar-name {
+  flex: 1;
+  max-width: 420px;
+  padding: 0 1rem;
+}
+
+.name-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.95rem;
+  background: #ffffff;
+}
+
+.name-input:focus-visible {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
 .toolbar-actions {
   display: inline-flex;
   align-items: center;
@@ -46,6 +66,105 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.toolbar-dropdown {
+  position: relative;
+}
+
+.toolbar-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 240px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+  padding: 0.5rem;
+  z-index: 20;
+}
+
+.toolbar-panel--wide {
+  min-width: 320px;
+}
+
+.toolbar-panel__item {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.6rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.toolbar-panel__item:hover {
+  background: #f8fafc;
+}
+
+.toolbar-panel__title {
+  display: block;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.toolbar-panel__subtitle {
+  display: block;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.toolbar-panel__empty {
+  padding: 0.5rem 0.65rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.toolbar-panel__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.35rem 0.35rem 0.6rem;
+  gap: 0.5rem;
+}
+
+.toolbar-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #475569;
+}
+
+.validation-list {
+  margin: 0;
+  padding: 0.35rem 0.35rem 0.5rem;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.validation-message {
+  display: block;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.validation-node {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.text-success {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.text-error {
+  color: #dc2626;
+  font-weight: 700;
+}
+
 .toolbar-button:hover {
   background: #f8fafc;
   border-color: #cbd5e1;
@@ -55,4 +174,16 @@
 .toolbar-button:focus-visible {
   outline: 2px solid #22c55e;
   outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

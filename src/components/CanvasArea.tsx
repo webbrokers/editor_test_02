@@ -1,4 +1,4 @@
-import './CanvasArea.css'
+﻿import './CanvasArea.css'
 
 function CanvasArea() {
   return (
@@ -6,8 +6,8 @@ function CanvasArea() {
       <div className="canvas-surface">
         <div className="canvas-grid" aria-hidden />
         <div className="canvas-placeholder">
-          Поле для визуального редактора сценариев
-          <span className="canvas-subtitle">Используйте React Flow для работы с нодами и связями</span>
+          This placeholder component was replaced by FlowCanvas that renders the React Flow surface.
+          <span className="canvas-subtitle">FlowCanvas owns the grid and interactions; keep this file unused or remove it.</span>
         </div>
       </div>
     </section>
