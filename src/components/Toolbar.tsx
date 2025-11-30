@@ -13,6 +13,10 @@ type ToolbarProps = {
   onLoad: (id: string) => void
   onExport: () => void
   onValidate: () => ValidationResult
+  designVersion?: 'v1' | 'v2'
+  view?: 'builder' | 'campaigns'
+  onNavigate?: (view: 'builder' | 'campaigns') => void
+  onBackToLanding?: () => void
 }
 
 function Toolbar({
@@ -25,6 +29,10 @@ function Toolbar({
   onLoad,
   onExport,
   onValidate,
+  designVersion = 'v2',
+  view = 'builder',
+  onNavigate,
+  onBackToLanding,
 }: ToolbarProps) {
   const [showLoadList, setShowLoadList] = useState(false)
   const [showValidation, setShowValidation] = useState(false)
@@ -36,40 +44,58 @@ function Toolbar({
 
   const hasErrors = validationResult && !validationResult.valid
   const validationSummary = useMemo(() => {
-    if (!validationResult) return 'Not validated yet'
-    return validationResult.valid
-      ? 'Flow is valid'
-      : `${validationResult.errors.length} issue${validationResult.errors.length === 1 ? '' : 's'}`
+    if (!validationResult) return 'Проверка еще не запускалась'
+    return validationResult.valid ? 'Проверка пройдена' : `${validationResult.errors.length} проблем`
   }, [validationResult])
 
   return (
-    <header className="toolbar">
+    <header className={`toolbar ${designVersion === 'v2' ? 'toolbar--v2' : ''}`}>
       <div className="brand">
+        <button className="brand-back" type="button" aria-label="К выбору дизайна" onClick={onBackToLanding}>
+          ←
+        </button>
         <span className="brand-accent" aria-hidden>
           *
         </span>
-        <span className="brand-title">Campaign Builder</span>
+        <span className="brand-title">Конструктор кампаний</span>
+        <div className="view-switch">
+          <button
+            className={`view-switch__item ${view === 'builder' ? 'is-active' : ''}`}
+            type="button"
+            onClick={() => onNavigate?.('builder')}
+          >
+            Конструктор
+          </button>
+          <button
+            className={`view-switch__item ${view === 'campaigns' ? 'is-active' : ''}`}
+            type="button"
+            onClick={() => onNavigate?.('campaigns')}
+          >
+            Кампании
+          </button>
+        </div>
       </div>
 
       <div className="toolbar-name">
         <label className="sr-only" htmlFor="campaign-name">
-          Campaign name
+          Название кампании
         </label>
         <input
           id="campaign-name"
           className="name-input"
           value={campaignName}
           onChange={(event) => onCampaignNameChange(event.target.value)}
-          placeholder="Untitled campaign"
+          placeholder="Новая кампания"
         />
+        <span className="status-pill">В разработке</span>
       </div>
 
-      <nav className="toolbar-actions" aria-label="Toolbar actions">
+      <nav className="toolbar-actions" aria-label="Действия">
         <button className="toolbar-button" type="button" onClick={onNew}>
-          New
+          Новый
         </button>
         <button className="toolbar-button" type="button" onClick={onSave}>
-          Save
+          Сохранить
         </button>
         <div className="toolbar-dropdown">
           <button
@@ -78,12 +104,12 @@ function Toolbar({
             aria-expanded={showLoadList}
             onClick={() => setShowLoadList((open) => !open)}
           >
-            Load
+            Загрузить
           </button>
           {showLoadList && (
             <div className="toolbar-panel">
               {savedCampaigns.length === 0 ? (
-                <div className="toolbar-panel__empty">No saved campaigns</div>
+                <div className="toolbar-panel__empty">Нет сохранений</div>
               ) : (
                 savedCampaigns.map((campaign) => (
                   <button
@@ -104,11 +130,11 @@ function Toolbar({
           )}
         </div>
         <button className="toolbar-button" type="button" onClick={onExport}>
-          Export JSON
+          Экспорт JSON
         </button>
         <div className="toolbar-dropdown">
           <button className="toolbar-button" type="button" onClick={handleValidate}>
-            Validate
+            Проверить
           </button>
           {showValidation && (
             <div className="toolbar-panel toolbar-panel--wide">
@@ -128,12 +154,12 @@ function Toolbar({
                   {validationResult.errors.map((error, index) => (
                     <li key={`${error.nodeId ?? 'error'}-${index}`}>
                       <span className="validation-message">{error.message}</span>
-                      {error.nodeId ? <span className="validation-node">Node: {error.nodeId}</span> : null}
+                      {error.nodeId ? <span className="validation-node">Нода: {error.nodeId}</span> : null}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="toolbar-panel__empty">No validation errors</div>
+                <div className="toolbar-panel__empty">Ошибок не найдено</div>
               )}
             </div>
           )}

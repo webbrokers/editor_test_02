@@ -4,10 +4,10 @@
   gap: 0.75rem;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 1.25rem;
+  padding: 1.1rem;
   min-height: 70vh;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
 }
 
 .sidebar-header h2 {

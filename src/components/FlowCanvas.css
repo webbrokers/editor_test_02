@@ -2,45 +2,103 @@
   position: relative;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  min-height: 72vh;
 }
 
 .flow-canvas__surface {
-  min-height: 70vh;
-  background: #ffffff;
+  min-height: 72vh;
+  background: #f6f7fb;
 }
 
-.flow-node {
-  position: relative;
-  min-width: 160px;
-  padding: 0.5rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.9rem;
-  background: #ffffff;
-  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+.react-flow__controls {
+  background: #ffffff !important;
+  border: 1px solid #d9e1ef !important;
+  border-radius: 0.75rem !important;
 }
 
-.flow-node__body {
-  display: grid;
-  gap: 0.25rem;
+.react-flow__controls-button {
+  border-bottom: 1px solid #e6e9f0 !important;
 }
 
-.flow-node__title {
+.react-flow__controls-button:hover {
+  background: #eef2ff !important;
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__pane {
+  cursor: crosshair;
+}
+
+.context-menu {
+  position: absolute;
+  background: #1f1d24;
+  color: #e7ecf5;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+  width: 280px;
+  z-index: 9;
+}
+
+.context-menu__title {
   font-weight: 700;
-  color: #0f172a;
-  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
 }
 
-.flow-node__meta {
-  font-size: 0.9rem;
-  color: #475569;
+.context-menu__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
 }
 
-.flow-node__handle {
-  width: 12px;
-  height: 12px;
-  background: #22c55e;
-  border: 2px solid #ffffff;
+.context-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #34323b;
+  background: #25232c;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.context-menu__item:hover {
+  border-color: #58c66a;
+}
+
+.context-menu__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.7rem;
+  display: grid;
+  place-items: center;
+  background: #2f2c35;
+}
+
+.context-menu__name {
+  font-weight: 700;
+}
+
+.context-menu__slug {
+  font-size: 0.85rem;
+  color: #9aa0ad;
+}
+
+.context-menu__close {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #34323b;
+  background: #2f2c35;
+  color: #d4d8e1;
+  cursor: pointer;
 }

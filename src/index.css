@@ -36,4 +36,54 @@ body {
 
 button {
   font-family: inherit;
+  border: none;
+  background: none;
+}
+
+.primary {
+  background: linear-gradient(135deg, #58c66a, #3fa85a);
+  color: #0f1c13;
+  border: none;
+  border-radius: 0.85rem;
+  padding: 0.75rem 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(56, 189, 116, 0.35);
+}
+
+.ghost {
+  background: #f2f4f8;
+  color: #0f172a;
+  border: 1px solid #d7dce8;
+  border-radius: 0.85rem;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.link-button {
+  border: none;
+  background: none;
+  color: #0d7c3c;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.link-button--danger {
+  color: #b4232b;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.pill--green {
+  background: #e4f5e7;
+  color: #1c7f3d;
 }

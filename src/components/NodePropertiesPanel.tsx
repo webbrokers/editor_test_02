@@ -42,11 +42,9 @@ function renderHeader(type: NodeType, nodeId: string) {
 function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanelProps) {
   if (!selectedNode) {
     return (
-      <Sidebar title="Properties">
-        <div className="placeholder">Select a node on the canvas to edit its properties.</div>
-        <div className="properties__hint">
-          Click a node to load its data. Add new nodes from the left palette, then fine-tune them here.
-        </div>
+      <Sidebar title="Параметры ноды">
+        <div className="placeholder">Выберите ноду на холсте, чтобы настроить её параметры.</div>
+        <div className="properties__hint">Дважды кликните на холст или перетащите блок сверху, чтобы создать новую ноду.</div>
       </Sidebar>
     )
   }
@@ -57,7 +55,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
   const renderConditions = (
     conditions: Condition[],
     onUpdate: (next: Condition[]) => void,
-    addLabel = 'Add condition',
+    addLabel = 'Добавить условие',
   ) => (
     <div className="stack" data-section="conditions">
       <div className="stack__items">
@@ -65,7 +63,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
           <div key={`${condition.field}-${index}`} className="field-row">
             <input
               className="input"
-              placeholder="Field"
+              placeholder="Поле"
               value={condition.field}
               onChange={(event) => {
                 const next = [...conditions]
@@ -90,7 +88,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             </select>
             <input
               className="input"
-              placeholder="Value"
+              placeholder="Значение"
               value={condition.value}
               onChange={(event) => {
                 const next = [...conditions]
@@ -102,7 +100,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               type="button"
               className="icon-button"
               onClick={() => onUpdate(conditions.filter((_, idx) => idx !== index))}
-              aria-label="Remove condition"
+              aria-label="Удалить условие"
             >
               x
             </button>
@@ -124,22 +122,22 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
       {options.map((option, index) => (
         <div key={`${option.key}-${index}`} className="field-row field-row--placement">
           <input
-            className="input"
-            placeholder="Key"
-            value={option.key}
-            onChange={(event) => {
-              const next = [...options]
-              next[index] = { ...option, key: event.target.value }
+              className="input"
+              placeholder="Ключ"
+              value={option.key}
+              onChange={(event) => {
+                const next = [...options]
+                next[index] = { ...option, key: event.target.value }
               onUpdate(next)
             }}
           />
           <input
-            className="input"
-            placeholder="Value"
-            value={option.value}
-            onChange={(event) => {
-              const next = [...options]
-              next[index] = { ...option, value: event.target.value }
+              className="input"
+              placeholder="Значение"
+              value={option.value}
+              onChange={(event) => {
+                const next = [...options]
+                next[index] = { ...option, value: event.target.value }
               onUpdate(next)
             }}
           />
@@ -147,7 +145,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             type="button"
             className="icon-button"
             onClick={() => onUpdate(options.filter((_, idx) => idx !== index))}
-            aria-label="Remove option"
+            aria-label="Удалить опцию"
           >
             x
           </button>
@@ -158,7 +156,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         className="ghost-button"
         onClick={() => onUpdate([...options, { key: '', value: '' }])}
       >
-        Add placement option
+        Добавить настройку
       </button>
     </div>
   )
@@ -166,36 +164,36 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
   const renderBranches = (branches: FunnelSplitData['branches'], onUpdate: (next: FunnelSplitData['branches']) => void) => (
     <div className="stack">
       {branches.map((branch, index) => (
-        <div key={branch.id || index} className="stack stack--border">
-          <div className="field">
-            <label>Branch ID</label>
-            <input
-              className="input"
-              value={branch.id}
-              onChange={(event) => {
+          <div key={branch.id || index} className="stack stack--border">
+            <div className="field">
+              <label>ID ветки</label>
+              <input
+                className="input"
+                value={branch.id}
+                onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, id: event.target.value }
                 onUpdate(next)
               }}
             />
-          </div>
-          <div className="field">
-            <label>Label</label>
-            <input
-              className="input"
-              value={branch.label}
+            </div>
+            <div className="field">
+              <label>Название</label>
+              <input
+                className="input"
+                value={branch.label}
               onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, label: event.target.value }
                 onUpdate(next)
               }}
             />
-          </div>
-          <div className="field">
-            <label>Condition</label>
-            <input
-              className="input"
-              value={branch.condition}
+            </div>
+            <div className="field">
+              <label>Условие</label>
+              <input
+                className="input"
+                value={branch.condition}
               onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, condition: event.target.value }
@@ -208,7 +206,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             className="ghost-button ghost-button--danger"
             onClick={() => onUpdate(branches.filter((_, idx) => idx !== index))}
           >
-            Remove branch
+            Удалить ветку
           </button>
         </div>
       ))}
@@ -218,11 +216,11 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         onClick={() =>
           onUpdate([
             ...branches,
-            { id: `branch-${branches.length + 1}`, label: `Branch ${branches.length + 1}`, condition: '' },
+            { id: `branch-${branches.length + 1}`, label: `Ветка ${branches.length + 1}`, condition: '' },
           ])
         }
       >
-        Add branch
+        Добавить ветку
       </button>
     </div>
   )
@@ -234,7 +232,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
           <input
             className="input"
             value={variable}
-            placeholder="Variable name"
+            placeholder="Имя переменной"
             onChange={(event) => {
               const next = [...variables]
               next[index] = event.target.value
@@ -245,14 +243,14 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             type="button"
             className="icon-button"
             onClick={() => onUpdate(variables.filter((_, idx) => idx !== index))}
-            aria-label="Remove variable"
+            aria-label="Удалить переменную"
           >
             x
           </button>
         </div>
       ))}
       <button type="button" className="ghost-button" onClick={() => onUpdate([...variables, ''])}>
-        Add variable
+        Добавить переменную
       </button>
     </div>
   )
@@ -271,11 +269,11 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Name</label>
+              <label>Название</label>
               <input className="input" value={current.name} onChange={(event) => updateField('name', event.target.value)} />
             </div>
             <div className="field">
-              <label>Description</label>
+              <label>Описание</label>
               <textarea
                 className="input input--textarea"
                 rows={3}
@@ -284,7 +282,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               />
             </div>
             <div className="field">
-              <label>Trigger</label>
+              <label>Триггер</label>
               <input
                 className="input"
                 value={current.triggerType}
@@ -307,7 +305,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Campaign ID</label>
+              <label>ID кампании</label>
               <input
                 className="input"
                 value={current.campaignId}
@@ -315,7 +313,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               />
             </div>
             <div className="field">
-              <label>Budget</label>
+              <label>Бюджет</label>
               <input
                 className="input"
                 type="number"
@@ -324,21 +322,21 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
                 onChange={(event) => updateField('budget', Number(event.target.value))}
               />
             </div>
-            <div className="field-row">
-              <div className="field">
-                <label>Start date</label>
-                <input
-                  className="input"
-                  type="date"
+          <div className="field-row">
+            <div className="field">
+              <label>Старт</label>
+              <input
+                className="input"
+                type="date"
                   value={current.startDate || ''}
                   onChange={(event) => updateField('startDate', event.target.value)}
                 />
               </div>
-              <div className="field">
-                <label>End date</label>
-                <input
-                  className="input"
-                  type="date"
+            <div className="field">
+              <label>Финиш</label>
+              <input
+                className="input"
+                type="date"
                   value={current.endDate || ''}
                   onChange={(event) => updateField('endDate', event.target.value)}
                 />
@@ -360,7 +358,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Placement type</label>
+              <label>Тип размещения</label>
               <select
                 className="input"
                 value={current.placementType}
@@ -374,7 +372,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               </select>
             </div>
             <div className="field">
-              <label>Placement options</label>
+              <label>Настройки канала</label>
               {renderPlacementOptions(current.placementOptions, (next) => updateField('placementOptions', next))}
             </div>
           </div>
@@ -388,7 +386,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         }
         return (
           <div className="stack">
-            <label>Segment conditions</label>
+            <label>Условия сегмента</label>
             {renderConditions(current.conditions, (next) => updateData({ ...current, conditions: next }))}
           </div>
         )
@@ -401,7 +399,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         }
         return (
           <div className="stack">
-            <label>Filter conditions</label>
+            <label>Условия фильтрации</label>
             {renderConditions(current.conditions, (next) => updateData({ ...current, conditions: next }))}
           </div>
         )
@@ -420,7 +418,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Split attribute</label>
+              <label>Атрибут разветвления</label>
               <input
                 className="input"
                 value={current.attribute}
@@ -428,7 +426,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               />
             </div>
             <div className="field">
-              <label>Branches</label>
+              <label>Ветки</label>
               {renderBranches(current.branches, (next) => updateField('branches', next))}
             </div>
           </div>
@@ -445,7 +443,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Test title</label>
+              <label>Название теста</label>
               <input
                 className="input"
                 value={current.title}
@@ -453,7 +451,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               />
             </div>
             <div className="field">
-              <label>Split A / B</label>
+              <label>Соотношение A / B</label>
               <div className="slider-row">
                 <input
                   className="input input--range"
@@ -481,7 +479,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Action type</label>
+              <label>Тип действия</label>
               <input
                 className="input"
                 value={current.actionType}
@@ -489,7 +487,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               />
             </div>
             <div className="field">
-              <label>Payload</label>
+              <label>Payload / тело</label>
               <textarea
                 className="input input--textarea"
                 rows={4}
@@ -527,11 +525,11 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
         return (
           <div className="stack">
             <div className="field">
-              <label>Title</label>
+              <label>Название</label>
               <input className="input" value={current.title} onChange={(event) => updateField('title', event.target.value)} />
             </div>
             <div className="field">
-              <label>Prompt</label>
+              <label>Промпт</label>
               <textarea
                 className="input input--textarea"
                 rows={4}
@@ -541,7 +539,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             </div>
             <div className="field-row">
               <div className="field">
-                <label>Mode</label>
+                <label>Режим</label>
                 <select
                   className="input"
                   value={current.mode}
@@ -552,7 +550,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
                 </select>
               </div>
               <div className="field">
-                <label>Model</label>
+                <label>Модель</label>
                 <input
                   className="input"
                   list="llm-models"
@@ -569,7 +567,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
             </div>
             <div className="field-row">
               <div className="field">
-                <label>Temperature</label>
+                <label>Температура</label>
                 <input
                   className="input"
                   type="number"
@@ -583,7 +581,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
                 />
               </div>
               <div className="field">
-                <label>Max tokens</label>
+                <label>Максимум токенов</label>
                 <input
                   className="input"
                   type="number"
@@ -596,7 +594,7 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
               </div>
             </div>
             <div className="field">
-              <label>Variables</label>
+              <label>Переменные</label>
               {renderVariables(current.variables, (next) => updateField('variables', next))}
             </div>
             <label className="checkbox">
@@ -605,18 +603,18 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
                 checked={current.autoReplaceInput}
                 onChange={(event) => updateField('autoReplaceInput', event.target.checked)}
               />
-              Auto-replace input placeholders
+              Автозамена плейсхолдеров
             </label>
           </div>
         )
       }
       default:
-        return <div className="placeholder">No editor available for this node type.</div>
+        return <div className="placeholder">Нет редактора для выбранного типа ноды.</div>
     }
   }
 
   return (
-    <Sidebar title="Properties">
+    <Sidebar title="Параметры ноды">
       {renderHeader(type, id)}
       {renderByType()}
     </Sidebar>

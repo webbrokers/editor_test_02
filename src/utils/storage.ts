@@ -47,3 +47,13 @@ export function saveCampaign(flow: CampaignFlow): void {
 
   writeStorage(campaigns)
 }
+
+export function deleteCampaign(id: string): void {
+  const campaigns = readStorage().filter((campaign) => campaign.id !== id)
+  writeStorage(campaigns)
+}
+
+export function renameCampaign(id: string, nextName: string): void {
+  const campaigns = readStorage().map((campaign) => (campaign.id === id ? { ...campaign, name: nextName } : campaign))
+  writeStorage(campaigns)
+}
