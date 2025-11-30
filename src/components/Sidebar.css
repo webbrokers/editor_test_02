@@ -1,0 +1,38 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  min-height: 70vh;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-content {
+  flex: 1;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.sidebar-content p {
+  margin: 0 0 0.75rem;
+}
+
+.sidebar-content .placeholder {
+  padding: 0.75rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  text-align: center;
+  color: #64748b;
+}
