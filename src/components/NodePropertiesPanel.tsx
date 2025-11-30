@@ -1,5 +1,4 @@
-﻿import type { ChangeEvent } from 'react'
-import Sidebar from './Sidebar'
+﻿import React, { type ChangeEvent } from 'react'
 import type { NodeConfig, NodeType } from '../types/flow'
 import type {
   AbTestData,
@@ -8,7 +7,6 @@ import type {
   CampaignMetaData,
   CampaignStartData,
   CampaignTypeData,
-  Condition,
   FilterNodeData,
   FunnelSplitData,
   LlmTextNodeData,
@@ -16,9 +14,12 @@ import type {
 } from '../types/nodes'
 import './NodePropertiesPanel.css'
 
+type Condition = { field: string; operator: string; value: string }
+
 type NodePropertiesPanelProps = {
   selectedNode: NodeConfig<NodeData> | null
   onChangeData: (nodeId: string, newData: NodeData) => void
+  onClose: () => void
 }
 
 const placementTypes = [
@@ -39,14 +40,9 @@ function renderHeader(type: NodeType, nodeId: string) {
   )
 }
 
-function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanelProps) {
+function NodePropertiesPanel({ selectedNode, onChangeData, onClose }: NodePropertiesPanelProps) {
   if (!selectedNode) {
-    return (
-      <Sidebar title="Параметры ноды">
-        <div className="placeholder">Выберите ноду на холсте, чтобы настроить её параметры.</div>
-        <div className="properties__hint">Дважды кликните на холст или перетащите блок сверху, чтобы создать новую ноду.</div>
-      </Sidebar>
-    )
+    return null
   }
 
   const { id, type, data } = selectedNode
@@ -122,22 +118,22 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
       {options.map((option, index) => (
         <div key={`${option.key}-${index}`} className="field-row field-row--placement">
           <input
-              className="input"
-              placeholder="Ключ"
-              value={option.key}
-              onChange={(event) => {
-                const next = [...options]
-                next[index] = { ...option, key: event.target.value }
+            className="input"
+            placeholder="Ключ"
+            value={option.key}
+            onChange={(event) => {
+              const next = [...options]
+              next[index] = { ...option, key: event.target.value }
               onUpdate(next)
             }}
           />
           <input
-              className="input"
-              placeholder="Значение"
-              value={option.value}
-              onChange={(event) => {
-                const next = [...options]
-                next[index] = { ...option, value: event.target.value }
+            className="input"
+            placeholder="Значение"
+            value={option.value}
+            onChange={(event) => {
+              const next = [...options]
+              next[index] = { ...option, value: event.target.value }
               onUpdate(next)
             }}
           />
@@ -164,36 +160,36 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
   const renderBranches = (branches: FunnelSplitData['branches'], onUpdate: (next: FunnelSplitData['branches']) => void) => (
     <div className="stack">
       {branches.map((branch, index) => (
-          <div key={branch.id || index} className="stack stack--border">
-            <div className="field">
-              <label>ID ветки</label>
-              <input
-                className="input"
-                value={branch.id}
-                onChange={(event) => {
+        <div key={branch.id || index} className="stack stack--border">
+          <div className="field">
+            <label>ID ветки</label>
+            <input
+              className="input"
+              value={branch.id}
+              onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, id: event.target.value }
                 onUpdate(next)
               }}
             />
-            </div>
-            <div className="field">
-              <label>Название</label>
-              <input
-                className="input"
-                value={branch.label}
+          </div>
+          <div className="field">
+            <label>Название</label>
+            <input
+              className="input"
+              value={branch.label}
               onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, label: event.target.value }
                 onUpdate(next)
               }}
             />
-            </div>
-            <div className="field">
-              <label>Условие</label>
-              <input
-                className="input"
-                value={branch.condition}
+          </div>
+          <div className="field">
+            <label>Условие</label>
+            <input
+              className="input"
+              value={branch.condition}
               onChange={(event) => {
                 const next = [...branches]
                 next[index] = { ...branch, condition: event.target.value }
@@ -322,21 +318,21 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
                 onChange={(event) => updateField('budget', Number(event.target.value))}
               />
             </div>
-          <div className="field-row">
-            <div className="field">
-              <label>Старт</label>
-              <input
-                className="input"
-                type="date"
+            <div className="field-row">
+              <div className="field">
+                <label>Старт</label>
+                <input
+                  className="input"
+                  type="date"
                   value={current.startDate || ''}
                   onChange={(event) => updateField('startDate', event.target.value)}
                 />
               </div>
-            <div className="field">
-              <label>Финиш</label>
-              <input
-                className="input"
-                type="date"
+              <div className="field">
+                <label>Финиш</label>
+                <input
+                  className="input"
+                  type="date"
                   value={current.endDate || ''}
                   onChange={(event) => updateField('endDate', event.target.value)}
                 />
@@ -614,14 +610,19 @@ function NodePropertiesPanel({ selectedNode, onChangeData }: NodePropertiesPanel
   }
 
   return (
-    <Sidebar title="Параметры ноды">
-      {renderHeader(type, id)}
-      {renderByType()}
-    </Sidebar>
+    <div className="properties-panel">
+      <div className="properties-panel__header">
+        <h2 className="properties-panel__title">Параметры ноды</h2>
+        <button type="button" className="properties-panel__close" onClick={onClose} aria-label="Закрыть">
+          x
+        </button>
+      </div>
+      <div className="properties-panel__content">
+        {renderHeader(type, id)}
+        {renderByType()}
+      </div>
+    </div>
   )
 }
 
 export default NodePropertiesPanel
-
-
-
